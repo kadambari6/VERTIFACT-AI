@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VERTIFACT AI</title>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ── Background Blobs ── -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- ── Main Wrapper ── -->
+  <div class="wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>VERTIFACT <span class="highlight">AI</span></span>
+      </div>
+      <p class="tagline">Verify news credibility instantly with advanced AI analysis</p>
+    </header>
+    <!-- Hero Description -->
+
+<div class="hero-info">
+
+  <div class="hero-box">
+    <i class="fa-solid fa-brain"></i>
+    <h3>AI-Powered Detection</h3>
+    <p>
+      Uses Machine Learning and Natural Language Processing
+      to classify news as Real or Fake.
+    </p>
+  </div>
+
+  <div class="hero-box">
+    <i class="fa-solid fa-bolt"></i>
+    <h3>Instant Analysis</h3>
+    <p>
+      Analyze news articles in seconds with confidence scoring
+      and probability prediction.
+    </p>
+  </div>
+
+  <div class="hero-box">
+    <i class="fa-solid fa-shield"></i>
+    <h3>Reliable Results</h3>
+    <p>
+      Built using Flask and Scikit-learn
+      for smart fake news detection.
+    </p>
+  </div>
+
+</div>
+  
+
+<!-- ── Card ── -->
+<div class="card">
+
+  <!-- Input Section -->
+  <div class="input-section">
+    <label for="newsInput">
+      <i class="fa-solid fa-newspaper"></i> Paste News Article
+    </label>
+<div class="examples">
+    <p class="example-label">Try an example:</p>
+
+    <button class="example-btn" onclick="loadExample('example1')">Example 1</button>
+
+<button class="example-btn" onclick="loadExample('example2')">Example 2</button>
+
+<button class="example-btn" onclick="loadExample('example3')">Example 3</button>
+
+<button class="example-btn" onclick="loadExample('example4')">Example 4</button>
+</div>
+
+    <textarea
+      id="newsInput"
+    
+      placeholder="Paste a news headline or full article to analyze whether it is REAL or FAKE..."
+      rows="7"
+    ></textarea>
+
+    <div class="char-count">
+      <span id="charCount">0</span> characters
+    </div>
+  </div>
+
+  
+
+<!-- URL SECTION -->
+<div class="url-section">
+  <button onclick="openPopup()" class="open-btn">
+    <i class="fa-solid fa-link"></i> Analyze News URL
+  </button>
+</div>
+
+<!-- POPUP OVERLAY -->
+<div id="urlPopup" class="overlay">
+  <div class="popup">
+    <h3><i class="fa-solid fa-link"></i> Analyze News URL</h3>
+    <input type="text" id="urlInput" placeholder="Paste news article URL here...">
+    <button onclick="analyzeURL()">
+      <i class="fa-solid fa-magnifying-glass"></i> Analyze URL
+    </button>
+    <button onclick="closePopup()" class="close-btn">
+      <i class="fa-solid fa-xmark"></i> Close
+    </button>
+  </div>
+</div>    
+
+</div>
+
+      <!-- Error Message -->
+      <div class="error-msg" id="errorMsg">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span id="errorText">Please enter some news text.</span>
+      </div>
+      
+
+      <!-- Analyze Button -->
+      <button class="btn-analyze" id="analyzeBtn" onclick="analyzeNews()">
+        <span class="btn-text">
+          <i class="fa-solid fa-magnifying-glass"></i> Analyze News
+        </span>
+        <span class="btn-loader hidden">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Analyzing...
+        </span>
+      </button>
+
+      <!-- ── Result Section ── -->
+      <div class="result-section hidden" id="resultSection">
+
+        <!-- Verdict Badge -->
+        <div class="verdict-badge" id="verdictBadge">
+          <div class="verdict-icon" id="verdictIcon"></div>
+          <div class="verdict-text" id="verdictText"></div>
+          <div class="verdict-sub" id="verdictSub"></div>
+        </div>
+
+        <!-- Confidence Bar -->
+        <div class="confidence-block">
+          <div class="conf-label">
+            <span>Confidence Score</span>
+            <span id="confPercent">0%</span>
+          </div>
+          <div class="conf-bar-bg">
+            <div class="conf-bar-fill" id="confBarFill"></div>
+          </div>
+        </div>
+
+        <!-- Probability Pills -->
+        <div class="prob-pills">
+          <div class="pill pill-fake">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span>Fake Probability</span>
+            <strong id="fakeProb">0%</strong>
+          </div>
+          <div class="pill pill-real">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Real Probability</span>
+            <strong id="realProb">0%</strong>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <button class="btn-reset" onclick="resetForm()">
+          <i class="fa-solid fa-rotate-left"></i> Check Another
+        </button>
+
+      </div>
+      <!-- /result-section -->
+
+    </div>
+    
+   <!-- Stats -->
+<div class="stats-section">
+
+  <div class="stat-box">
+    <h2>95%</h2>
+    <p>Model Accuracy</p>
+  </div>
+
+  <div class="stat-box">
+    <h2>AI + NLP</h2>
+    <p>Powered Detection</p>
+  </div>
+
+  <div class="stat-box">
+    <h2>Real-Time</h2>
+    <p>Instant Verification</p>
+  </div>
+
+</div>  
+
+    <!-- Footer -->
+    <footer class="footer">
+  <p>
+    Built with <i class="fa-solid fa-heart"></i>
+    using Flask, Scikit-learn, HTML, CSS & JavaScript
+  </p>
+
+  <p class="footer-sub">
+    Vertifact AI • Fake News Detection System • 2026
+  </p>
+</footer>
+  <!-- /wrapper -->
+   </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  
+  </body>
+  </html>
+
+
